@@ -1,0 +1,457 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ProjetModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="ProjetModelStoreContainer">
+          <EntitySet Name="Administrateur" EntityType="ProjetModel.Store.Administrateur" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Association_1" EntityType="ProjetModel.Store.Association_1" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Condidat" EntityType="ProjetModel.Store.Condidat" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Entretien" EntityType="ProjetModel.Store.Entretien" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="OffreEmploi" EntityType="ProjetModel.Store.OffreEmploi" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Recruteur" EntityType="ProjetModel.Store.Recruteur" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Utilisateur" EntityType="ProjetModel.Store.Utilisateur" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_ADMINIST_GENERALIS_UTILISAT" Association="ProjetModel.Store.FK_ADMINIST_GENERALIS_UTILISAT">
+            <End Role="Utilisateur" EntitySet="Utilisateur" />
+            <End Role="Administrateur" EntitySet="Administrateur" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ASSOCIAT_ASSOCIATI_CONDIDAT" Association="ProjetModel.Store.FK_ASSOCIAT_ASSOCIATI_CONDIDAT">
+            <End Role="Condidat" EntitySet="Condidat" />
+            <End Role="Association_1" EntitySet="Association_1" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ASSOCIAT_ASSOCIATI_OFFREEMP" Association="ProjetModel.Store.FK_ASSOCIAT_ASSOCIATI_OFFREEMP">
+            <End Role="OffreEmploi" EntitySet="OffreEmploi" />
+            <End Role="Association_1" EntitySet="Association_1" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CONDIDAT_GENERALIS_UTILISAT" Association="ProjetModel.Store.FK_CONDIDAT_GENERALIS_UTILISAT">
+            <End Role="Utilisateur" EntitySet="Utilisateur" />
+            <End Role="Condidat" EntitySet="Condidat" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ENTRETIE_ASSOCIATI_CONDIDAT" Association="ProjetModel.Store.FK_ENTRETIE_ASSOCIATI_CONDIDAT">
+            <End Role="Condidat" EntitySet="Condidat" />
+            <End Role="Entretien" EntitySet="Entretien" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OFFREEMP_ASSOCIATI_RECRUTEU" Association="ProjetModel.Store.FK_OFFREEMP_ASSOCIATI_RECRUTEU">
+            <End Role="Recruteur" EntitySet="Recruteur" />
+            <End Role="OffreEmploi" EntitySet="OffreEmploi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RECRUTEU_GENERALIS_UTILISAT" Association="ProjetModel.Store.FK_RECRUTEU_GENERALIS_UTILISAT">
+            <End Role="Utilisateur" EntitySet="Utilisateur" />
+            <End Role="Recruteur" EntitySet="Recruteur" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Administrateur">
+          <Key>
+            <PropertyRef Name="CIN" />
+          </Key>
+          <Property Name="CIN" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Association_1">
+          <Key>
+            <PropertyRef Name="CIN" />
+            <PropertyRef Name="IdOffre" />
+          </Key>
+          <Property Name="CIN" Type="int" Nullable="false" />
+          <Property Name="IdOffre" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Condidat">
+          <Key>
+            <PropertyRef Name="CIN" />
+          </Key>
+          <Property Name="CIN" Type="int" Nullable="false" />
+          <Property Name="CV" Type="varchar" MaxLength="254" />
+        </EntityType>
+        <EntityType Name="Entretien">
+          <Key>
+            <PropertyRef Name="IdEntretien" />
+          </Key>
+          <Property Name="IdEntretien" Type="int" Nullable="false" />
+          <Property Name="CIN" Type="int" Nullable="false" />
+          <Property Name="DateEntretien" Type="bit" />
+          <Property Name="Description" Type="int" />
+        </EntityType>
+        <EntityType Name="OffreEmploi">
+          <Key>
+            <PropertyRef Name="IdOffre" />
+          </Key>
+          <Property Name="IdOffre" Type="int" Nullable="false" />
+          <Property Name="CIN" Type="int" Nullable="false" />
+          <Property Name="TitreOffre" Type="varchar" MaxLength="254" />
+          <Property Name="Description" Type="varchar" MaxLength="254" />
+        </EntityType>
+        <EntityType Name="Recruteur">
+          <Key>
+            <PropertyRef Name="CIN" />
+          </Key>
+          <Property Name="CIN" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Utilisateur">
+          <Key>
+            <PropertyRef Name="CIN" />
+          </Key>
+          <Property Name="CIN" Type="int" Nullable="false" />
+          <Property Name="Nom" Type="varchar" MaxLength="254" />
+          <Property Name="Prenom" Type="varchar" MaxLength="254" />
+          <Property Name="Date_naissance" Type="datetime" />
+          <Property Name="Adresse" Type="varchar" MaxLength="254" />
+          <Property Name="Sexe" Type="varchar" MaxLength="254" />
+          <Property Name="Num_Tel" Type="varchar" MaxLength="254" />
+          <Property Name="Mail" Type="varchar" MaxLength="254" />
+        </EntityType>
+        <Association Name="FK_ADMINIST_GENERALIS_UTILISAT">
+          <End Role="Utilisateur" Type="ProjetModel.Store.Utilisateur" Multiplicity="1" />
+          <End Role="Administrateur" Type="ProjetModel.Store.Administrateur" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Utilisateur">
+              <PropertyRef Name="CIN" />
+            </Principal>
+            <Dependent Role="Administrateur">
+              <PropertyRef Name="CIN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ASSOCIAT_ASSOCIATI_CONDIDAT">
+          <End Role="Condidat" Type="ProjetModel.Store.Condidat" Multiplicity="1" />
+          <End Role="Association_1" Type="ProjetModel.Store.Association_1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Condidat">
+              <PropertyRef Name="CIN" />
+            </Principal>
+            <Dependent Role="Association_1">
+              <PropertyRef Name="CIN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ASSOCIAT_ASSOCIATI_OFFREEMP">
+          <End Role="OffreEmploi" Type="ProjetModel.Store.OffreEmploi" Multiplicity="1" />
+          <End Role="Association_1" Type="ProjetModel.Store.Association_1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OffreEmploi">
+              <PropertyRef Name="IdOffre" />
+            </Principal>
+            <Dependent Role="Association_1">
+              <PropertyRef Name="IdOffre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CONDIDAT_GENERALIS_UTILISAT">
+          <End Role="Utilisateur" Type="ProjetModel.Store.Utilisateur" Multiplicity="1" />
+          <End Role="Condidat" Type="ProjetModel.Store.Condidat" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Utilisateur">
+              <PropertyRef Name="CIN" />
+            </Principal>
+            <Dependent Role="Condidat">
+              <PropertyRef Name="CIN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ENTRETIE_ASSOCIATI_CONDIDAT">
+          <End Role="Condidat" Type="ProjetModel.Store.Condidat" Multiplicity="1" />
+          <End Role="Entretien" Type="ProjetModel.Store.Entretien" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Condidat">
+              <PropertyRef Name="CIN" />
+            </Principal>
+            <Dependent Role="Entretien">
+              <PropertyRef Name="CIN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OFFREEMP_ASSOCIATI_RECRUTEU">
+          <End Role="Recruteur" Type="ProjetModel.Store.Recruteur" Multiplicity="1" />
+          <End Role="OffreEmploi" Type="ProjetModel.Store.OffreEmploi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Recruteur">
+              <PropertyRef Name="CIN" />
+            </Principal>
+            <Dependent Role="OffreEmploi">
+              <PropertyRef Name="CIN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RECRUTEU_GENERALIS_UTILISAT">
+          <End Role="Utilisateur" Type="ProjetModel.Store.Utilisateur" Multiplicity="1" />
+          <End Role="Recruteur" Type="ProjetModel.Store.Recruteur" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Utilisateur">
+              <PropertyRef Name="CIN" />
+            </Principal>
+            <Dependent Role="Recruteur">
+              <PropertyRef Name="CIN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ProjetModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="ProjetEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Administrateur" EntityType="ProjetModel.Administrateur" />
+          <EntitySet Name="Condidat" EntityType="ProjetModel.Condidat" />
+          <EntitySet Name="Entretien" EntityType="ProjetModel.Entretien" />
+          <EntitySet Name="OffreEmploi" EntityType="ProjetModel.OffreEmploi" />
+          <EntitySet Name="Recruteur" EntityType="ProjetModel.Recruteur" />
+          <EntitySet Name="Utilisateur" EntityType="ProjetModel.Utilisateur" />
+          <AssociationSet Name="FK_ADMINIST_GENERALIS_UTILISAT" Association="ProjetModel.FK_ADMINIST_GENERALIS_UTILISAT">
+            <End Role="Utilisateur" EntitySet="Utilisateur" />
+            <End Role="Administrateur" EntitySet="Administrateur" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CONDIDAT_GENERALIS_UTILISAT" Association="ProjetModel.FK_CONDIDAT_GENERALIS_UTILISAT">
+            <End Role="Utilisateur" EntitySet="Utilisateur" />
+            <End Role="Condidat" EntitySet="Condidat" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ENTRETIE_ASSOCIATI_CONDIDAT" Association="ProjetModel.FK_ENTRETIE_ASSOCIATI_CONDIDAT">
+            <End Role="Condidat" EntitySet="Condidat" />
+            <End Role="Entretien" EntitySet="Entretien" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OFFREEMP_ASSOCIATI_RECRUTEU" Association="ProjetModel.FK_OFFREEMP_ASSOCIATI_RECRUTEU">
+            <End Role="Recruteur" EntitySet="Recruteur" />
+            <End Role="OffreEmploi" EntitySet="OffreEmploi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RECRUTEU_GENERALIS_UTILISAT" Association="ProjetModel.FK_RECRUTEU_GENERALIS_UTILISAT">
+            <End Role="Utilisateur" EntitySet="Utilisateur" />
+            <End Role="Recruteur" EntitySet="Recruteur" />
+          </AssociationSet>
+          <AssociationSet Name="Association_1" Association="ProjetModel.Association_1">
+            <End Role="Condidat" EntitySet="Condidat" />
+            <End Role="OffreEmploi" EntitySet="OffreEmploi" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Administrateur">
+          <Key>
+            <PropertyRef Name="CIN" />
+          </Key>
+          <Property Name="CIN" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Utilisateur" Relationship="ProjetModel.FK_ADMINIST_GENERALIS_UTILISAT" FromRole="Administrateur" ToRole="Utilisateur" />
+        </EntityType>
+        <EntityType Name="Condidat">
+          <Key>
+            <PropertyRef Name="CIN" />
+          </Key>
+          <Property Name="CIN" Type="Int32" Nullable="false" />
+          <Property Name="CV" Type="String" MaxLength="254" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Utilisateur" Relationship="ProjetModel.FK_CONDIDAT_GENERALIS_UTILISAT" FromRole="Condidat" ToRole="Utilisateur" />
+          <NavigationProperty Name="Entretien" Relationship="ProjetModel.FK_ENTRETIE_ASSOCIATI_CONDIDAT" FromRole="Condidat" ToRole="Entretien" />
+          <NavigationProperty Name="OffreEmploi" Relationship="ProjetModel.Association_1" FromRole="Condidat" ToRole="OffreEmploi" />
+        </EntityType>
+        <EntityType Name="Entretien">
+          <Key>
+            <PropertyRef Name="IdEntretien" />
+          </Key>
+          <Property Name="IdEntretien" Type="Int32" Nullable="false" />
+          <Property Name="CIN" Type="Int32" Nullable="false" />
+          <Property Name="DateEntretien" Type="Boolean" />
+          <Property Name="Description" Type="Int32" />
+          <NavigationProperty Name="Condidat" Relationship="ProjetModel.FK_ENTRETIE_ASSOCIATI_CONDIDAT" FromRole="Entretien" ToRole="Condidat" />
+        </EntityType>
+        <EntityType Name="OffreEmploi">
+          <Key>
+            <PropertyRef Name="IdOffre" />
+          </Key>
+          <Property Name="IdOffre" Type="Int32" Nullable="false" />
+          <Property Name="CIN" Type="Int32" Nullable="false" />
+          <Property Name="TitreOffre" Type="String" MaxLength="254" Unicode="false" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="254" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Recruteur" Relationship="ProjetModel.FK_OFFREEMP_ASSOCIATI_RECRUTEU" FromRole="OffreEmploi" ToRole="Recruteur" />
+          <NavigationProperty Name="Condidat" Relationship="ProjetModel.Association_1" FromRole="OffreEmploi" ToRole="Condidat" />
+        </EntityType>
+        <EntityType Name="Recruteur">
+          <Key>
+            <PropertyRef Name="CIN" />
+          </Key>
+          <Property Name="CIN" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="OffreEmploi" Relationship="ProjetModel.FK_OFFREEMP_ASSOCIATI_RECRUTEU" FromRole="Recruteur" ToRole="OffreEmploi" />
+          <NavigationProperty Name="Utilisateur" Relationship="ProjetModel.FK_RECRUTEU_GENERALIS_UTILISAT" FromRole="Recruteur" ToRole="Utilisateur" />
+        </EntityType>
+        <EntityType Name="Utilisateur">
+          <Key>
+            <PropertyRef Name="CIN" />
+          </Key>
+          <Property Name="CIN" Type="Int32" Nullable="false" />
+          <Property Name="Nom" Type="String" MaxLength="254" Unicode="false" FixedLength="false" />
+          <Property Name="Prenom" Type="String" MaxLength="254" Unicode="false" FixedLength="false" />
+          <Property Name="Date_naissance" Type="DateTime" />
+          <Property Name="Adresse" Type="String" MaxLength="254" Unicode="false" FixedLength="false" />
+          <Property Name="Sexe" Type="String" MaxLength="254" Unicode="false" FixedLength="false" />
+          <Property Name="Num_Tel" Type="String" MaxLength="254" Unicode="false" FixedLength="false" />
+          <Property Name="Mail" Type="String" MaxLength="254" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Administrateur" Relationship="ProjetModel.FK_ADMINIST_GENERALIS_UTILISAT" FromRole="Utilisateur" ToRole="Administrateur" />
+          <NavigationProperty Name="Condidat" Relationship="ProjetModel.FK_CONDIDAT_GENERALIS_UTILISAT" FromRole="Utilisateur" ToRole="Condidat" />
+          <NavigationProperty Name="Recruteur" Relationship="ProjetModel.FK_RECRUTEU_GENERALIS_UTILISAT" FromRole="Utilisateur" ToRole="Recruteur" />
+        </EntityType>
+        <Association Name="FK_ADMINIST_GENERALIS_UTILISAT">
+          <End Role="Utilisateur" Type="ProjetModel.Utilisateur" Multiplicity="1" />
+          <End Role="Administrateur" Type="ProjetModel.Administrateur" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Utilisateur">
+              <PropertyRef Name="CIN" />
+            </Principal>
+            <Dependent Role="Administrateur">
+              <PropertyRef Name="CIN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CONDIDAT_GENERALIS_UTILISAT">
+          <End Role="Utilisateur" Type="ProjetModel.Utilisateur" Multiplicity="1" />
+          <End Role="Condidat" Type="ProjetModel.Condidat" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Utilisateur">
+              <PropertyRef Name="CIN" />
+            </Principal>
+            <Dependent Role="Condidat">
+              <PropertyRef Name="CIN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ENTRETIE_ASSOCIATI_CONDIDAT">
+          <End Role="Condidat" Type="ProjetModel.Condidat" Multiplicity="1" />
+          <End Role="Entretien" Type="ProjetModel.Entretien" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Condidat">
+              <PropertyRef Name="CIN" />
+            </Principal>
+            <Dependent Role="Entretien">
+              <PropertyRef Name="CIN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OFFREEMP_ASSOCIATI_RECRUTEU">
+          <End Role="Recruteur" Type="ProjetModel.Recruteur" Multiplicity="1" />
+          <End Role="OffreEmploi" Type="ProjetModel.OffreEmploi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Recruteur">
+              <PropertyRef Name="CIN" />
+            </Principal>
+            <Dependent Role="OffreEmploi">
+              <PropertyRef Name="CIN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RECRUTEU_GENERALIS_UTILISAT">
+          <End Role="Utilisateur" Type="ProjetModel.Utilisateur" Multiplicity="1" />
+          <End Role="Recruteur" Type="ProjetModel.Recruteur" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Utilisateur">
+              <PropertyRef Name="CIN" />
+            </Principal>
+            <Dependent Role="Recruteur">
+              <PropertyRef Name="CIN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Association_1">
+          <End Role="Condidat" Type="ProjetModel.Condidat" Multiplicity="*" />
+          <End Role="OffreEmploi" Type="ProjetModel.OffreEmploi" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ProjetModelStoreContainer" CdmEntityContainer="ProjetEntities">
+          <EntitySetMapping Name="Administrateur"><EntityTypeMapping TypeName="ProjetModel.Administrateur"><MappingFragment StoreEntitySet="Administrateur">
+            <ScalarProperty Name="CIN" ColumnName="CIN" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Condidat"><EntityTypeMapping TypeName="ProjetModel.Condidat"><MappingFragment StoreEntitySet="Condidat">
+            <ScalarProperty Name="CIN" ColumnName="CIN" />
+            <ScalarProperty Name="CV" ColumnName="CV" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Entretien"><EntityTypeMapping TypeName="ProjetModel.Entretien"><MappingFragment StoreEntitySet="Entretien">
+            <ScalarProperty Name="IdEntretien" ColumnName="IdEntretien" />
+            <ScalarProperty Name="CIN" ColumnName="CIN" />
+            <ScalarProperty Name="DateEntretien" ColumnName="DateEntretien" />
+            <ScalarProperty Name="Description" ColumnName="Description" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="OffreEmploi"><EntityTypeMapping TypeName="ProjetModel.OffreEmploi"><MappingFragment StoreEntitySet="OffreEmploi">
+            <ScalarProperty Name="IdOffre" ColumnName="IdOffre" />
+            <ScalarProperty Name="CIN" ColumnName="CIN" />
+            <ScalarProperty Name="TitreOffre" ColumnName="TitreOffre" />
+            <ScalarProperty Name="Description" ColumnName="Description" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Recruteur"><EntityTypeMapping TypeName="ProjetModel.Recruteur"><MappingFragment StoreEntitySet="Recruteur">
+            <ScalarProperty Name="CIN" ColumnName="CIN" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Utilisateur"><EntityTypeMapping TypeName="ProjetModel.Utilisateur"><MappingFragment StoreEntitySet="Utilisateur">
+            <ScalarProperty Name="CIN" ColumnName="CIN" />
+            <ScalarProperty Name="Nom" ColumnName="Nom" />
+            <ScalarProperty Name="Prenom" ColumnName="Prenom" />
+            <ScalarProperty Name="Date_naissance" ColumnName="Date_naissance" />
+            <ScalarProperty Name="Adresse" ColumnName="Adresse" />
+            <ScalarProperty Name="Sexe" ColumnName="Sexe" />
+            <ScalarProperty Name="Num_Tel" ColumnName="Num_Tel" />
+            <ScalarProperty Name="Mail" ColumnName="Mail" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <AssociationSetMapping Name="Association_1" TypeName="ProjetModel.Association_1" StoreEntitySet="Association_1">
+            <EndProperty Name="Condidat">
+              <ScalarProperty Name="CIN" ColumnName="CIN" />
+            </EndProperty>
+            <EndProperty Name="OffreEmploi">
+              <ScalarProperty Name="IdOffre" ColumnName="IdOffre" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="Model1">
+        <EntityTypeShape EntityType="ProjetModel.Administrateur" Width="1.5" PointX="3" PointY="2.75" Height="1.4033821614583335" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjetModel.Condidat" Width="1.5" PointX="3" PointY="4.875" Height="1.9802864583333335" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjetModel.Entretien" Width="1.5" PointX="5.25" PointY="4.875" Height="1.9802864583333335" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjetModel.OffreEmploi" Width="1.5" PointX="5.25" PointY="8" Height="2.1725878906249996" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjetModel.Recruteur" Width="1.5" PointX="3" PointY="7.625" Height="1.5956835937499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjetModel.Utilisateur" Width="1.5" PointX="0.75" PointY="4.375" Height="3.1340950520833317" IsExpanded="true" />
+        <AssociationConnector Association="ProjetModel.FK_ADMINIST_GENERALIS_UTILISAT" ManuallyRouted="false">
+          <ConnectorPoint PointX="1.5" PointY="4.375" />
+          <ConnectorPoint PointX="1.5" PointY="3.4516910807291667" />
+          <ConnectorPoint PointX="3" PointY="3.4516910807291667" />
+        </AssociationConnector>
+        <AssociationConnector Association="ProjetModel.FK_CONDIDAT_GENERALIS_UTILISAT" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="5.8651432291666667" />
+          <ConnectorPoint PointX="3" PointY="5.8651432291666667" />
+        </AssociationConnector>
+        <AssociationConnector Association="ProjetModel.FK_ENTRETIE_ASSOCIATI_CONDIDAT" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="5.8651432291666667" />
+          <ConnectorPoint PointX="5.25" PointY="5.8651432291666667" />
+        </AssociationConnector>
+        <AssociationConnector Association="ProjetModel.FK_OFFREEMP_ASSOCIATI_RECRUTEU" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="8.610341796875" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="8.610341796875" />
+          <ConnectorPoint PointX="4.958333333333333" PointY="8.610341796875" />
+          <ConnectorPoint PointX="5.25" PointY="8.610341796875" />
+        </AssociationConnector>
+        <AssociationConnector Association="ProjetModel.FK_RECRUTEU_GENERALIS_UTILISAT" ManuallyRouted="false">
+          <ConnectorPoint PointX="1.5" PointY="7.5090950520833317" />
+          <ConnectorPoint PointX="1.5" PointY="8.422841796875" />
+          <ConnectorPoint PointX="3" PointY="8.422841796875" />
+        </AssociationConnector>
+        <AssociationConnector Association="ProjetModel.Association_1" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="6.8552864583333335" />
+          <ConnectorPoint PointX="4.875" PointY="7.2302864583333335" />
+          <ConnectorPoint PointX="4.875" PointY="9.42271684375" />
+          <ConnectorPoint PointX="5.25" PointY="9.42271684375" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>
